@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -12,12 +13,15 @@ public class Shipping {
 
     @Id
     @Enumerated(EnumType.STRING)
+    @JsonProperty("method")
     private Method method;
 
     @Column(nullable = false)
+    @JsonProperty("price")
     private Integer price;
 
     @Column(nullable = false)
+    @JsonProperty("canBundle")
     private Boolean canBundle;
 
     public Shipping() {}

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Good;
 import com.example.demo.service.GoodService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +15,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/goods")
-public class ApiGoodController {
+public class GoodController {
     @Resource(name= "goodService")
     private GoodService goodService;
 
     @PostMapping("")
-    public ResponseEntity<Good> create(@RequestBody Good input) {
+    public ResponseEntity<Void> create(@RequestBody String input) throws JsonProcessingException {
         Good good = goodService.create(input);
         HttpHeaders headers = new HttpHeaders();
+        System.out.println("good in controller " + good.toString());
         headers.setLocation(URI.create("/goods/" + good.getId()));
-        return new ResponseEntity<Good>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
