@@ -5,8 +5,10 @@ import static org.hamcrest.CoreMatchers.*;
 
 import com.example.demo.domain.Good;
 import com.example.demo.domain.Method;
+import com.example.demo.domain.Shipping;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
@@ -61,13 +63,29 @@ public class JsonToGoodTest {
             "\t\"canBundle\": true\n" +
             "\t}\n" +
             "}";
+
+    private ObjectMapper mapper;
+
+    @Before
+    public void setup() {
+        mapper = new ObjectMapper();
+    }
+
     @Test
     public void convertTest() throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
         Good good = mapper.readValue(input, Good.class);
         assertThat(good.getOptions().size(), is(6));
         assertThat(good.getShipping().getMethod(), is(Method.FREE));
         assertThat(good.getPrice(), is(20000));
-        System.out.println(good.getId());
+        System.out.println(instanceOf(good.getClass()));
+    }
+
+    @Test
+    public void shipping() throws JsonProcessingException {
+        String shipInput = "{\n" +
+                "\t\"method\": \"FREE\",\n" +
+                "\t\"price\": 0,\n" +
+                "\t\"canBundle\": true\n" +
+                "\t}";
     }
 }

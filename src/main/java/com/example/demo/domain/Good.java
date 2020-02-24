@@ -1,8 +1,6 @@
 package com.example.demo.domain;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,13 +30,16 @@ public class Good {
     @JsonProperty("price")
     private Integer price;
 
-    @OneToMany(targetEntity = Option.class)
+    @OneToMany(targetEntity = Option.class, fetch = FetchType.LAZY)
     @JsonProperty("options")
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_option"))
     private List<Option> options = new ArrayList<>();
 
-    @OneToOne(targetEntity = Shipping.class)
+    @OneToOne(targetEntity = Shipping.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonProperty("shipping")
     private Shipping shipping;
+
+    public Good() {}
 
     public Good(String name, String provider, Integer price, Option option, Shipping shipping) {
         this.name = name;
