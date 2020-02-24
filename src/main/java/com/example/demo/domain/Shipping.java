@@ -3,16 +3,14 @@ package com.example.demo.domain;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Entity
 @ToString
 @Getter
 public class Shipping {
 
+    @Id
     @Enumerated(EnumType.STRING)
     private Method method;
 
@@ -20,13 +18,14 @@ public class Shipping {
     private Integer price;
 
     @Column(nullable = false)
-    private Boolean canBundel;
+    private Boolean canBundle;
 
     public Shipping() {}
 
-    public Shipping(Method method, Integer price, Boolean canBundel) {
+    public Shipping(Method method, Integer price, Boolean canBundle) {
+        System.out.println("shipping is called");
         this.method = method;
         this.price = price;
-        this.canBundel = canBundel;
+        this.canBundle = canBundle;
     }
 }

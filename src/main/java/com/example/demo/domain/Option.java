@@ -27,6 +27,7 @@ public class Option {
     public Option() {}
 
     public Option(String color, Size size, Integer stock) {
+        System.out.println("option is to called");
         this.color = color;
         this.size = size;
         this.stock = stock;

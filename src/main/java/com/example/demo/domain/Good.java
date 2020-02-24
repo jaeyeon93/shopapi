@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +26,10 @@ public class Good {
     @Column(nullable = false)
     private Integer price;
 
-    @Column(nullable = false)
+    @OneToMany(targetEntity = Option.class)
     private List<Option> options = new ArrayList<>();
 
-    @Column(nullable = false)
+    @OneToOne(targetEntity = Shipping.class)
     private Shipping shipping;
 
     public Good() {}
