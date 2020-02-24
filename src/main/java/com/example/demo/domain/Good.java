@@ -30,7 +30,7 @@ public class Good {
     @JsonProperty("price")
     private Integer price;
 
-    @OneToMany(targetEntity = Option.class, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Option.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonProperty("options")
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_option"))
     private List<Option> options = new ArrayList<>();
