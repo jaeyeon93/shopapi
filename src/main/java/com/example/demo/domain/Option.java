@@ -1,11 +1,13 @@
 package com.example.demo.domain;
 
+import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @ToString
+@Getter
 public class Option {
 
     @Id

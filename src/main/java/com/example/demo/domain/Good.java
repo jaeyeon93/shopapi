@@ -37,6 +37,14 @@ public class Good {
 
     public Good() {}
 
+    public Good(String name, String provider, Integer price, Option option, Shipping shipping) {
+        this.name = name;
+        this.provider = provider;
+        this.price = price;
+        this.options.add(option);
+        this.shipping = shipping;
+    }
+
     public Good(String name, String provider, Integer price, List<Option> options, Shipping shipping) {
         this.name = name;
         this.provider = provider;

@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 
 @Entity
 @ToString
+@Getter
 public class Shipping {
 
     @Enumerated(EnumType.STRING)
