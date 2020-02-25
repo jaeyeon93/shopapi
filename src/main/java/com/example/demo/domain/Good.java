@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @ToString
 @Getter
-@Setter
 public class Good {
     @Id
     @GeneratedValue
@@ -30,7 +29,7 @@ public class Good {
     @JsonProperty("price")
     private Integer price;
 
-    @OneToMany(targetEntity = Option.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Option.class, fetch = FetchType.LAZY)
     @JsonProperty("options")
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_option"))
     private List<Option> options = new ArrayList<>();
@@ -56,5 +55,9 @@ public class Good {
         this.price = price;
         this.options = options;
         this.shipping = shipping;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
