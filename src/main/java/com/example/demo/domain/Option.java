@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -15,9 +16,9 @@ import javax.persistence.*;
 public class Option {
 
     @Id
-    @GeneratedValue
+    @Column(nullable = false)
     @JsonProperty("id")
-    private Long id;
+    private int id;
 
     @Column(nullable = false)
     @JsonProperty("color")
@@ -33,8 +34,8 @@ public class Option {
     private int stock;
 
     @JsonCreator
-    public Option(@JsonProperty("color") String color, @JsonProperty("size") Size size, @JsonProperty("stock") int stock) {
-        System.out.println("option is to called");
+    public Option(@JsonProperty("id") int id, @JsonProperty("color") String color, @JsonProperty("size") Size size, @JsonProperty("stock") int stock) {
+        this.id = id;
         this.color = color;
         this.size = size;
         this.stock = stock;
