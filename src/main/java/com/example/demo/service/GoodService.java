@@ -20,7 +20,9 @@ public class GoodService {
 
     public Good create(String input) throws JsonProcessingException {
         GoodDto goodDto = converter.inputToGood(input);
-        return goodRepository.save(goodDto.of());
+        Good good = goodDto.of();
+        System.out.println("" + good.toString());
+        return goodRepository.save(good);
     }
 
     public Good findById(long id) {

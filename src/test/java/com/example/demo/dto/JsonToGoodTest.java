@@ -74,20 +74,9 @@ public class JsonToGoodTest {
     @Test
     public void convertTest() throws JsonProcessingException {
         GoodDto goodDto = converter.inputToGood(input);
-        System.out.println("Before finish");
-//        assertThat(goodDto.getOptions().size(), is(6));
-//        assertThat(goodDto.getShipping().getMethod(), is(Method.FREE));
-//        assertThat(goodDto.getPrice(), is(20000));
-    }
-
-
-
-    @Test
-    public void shipping() throws JsonProcessingException {
-        String shipInput = "{\n" +
-                "\t\"method\": \"FREE\",\n" +
-                "\t\"price\": 0,\n" +
-                "\t\"canBundle\": true\n" +
-                "\t}";
+        assertThat(goodDto.getName(), is("구매제거 테스트중"));
+        assertThat(goodDto.getOptions().size(), is(6));
+        assertThat(goodDto.getShipping().getMethod(), is(Method.FREE));
+        assertThat(goodDto.getPrice(), is(20000));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,12 +32,11 @@ public class Option {
     @JsonProperty("stock")
     private int stock;
 
-    public Option(String color, Size size, int stock) {
+    @JsonCreator
+    public Option(@JsonProperty("color") String color, @JsonProperty("size") Size size, @JsonProperty("stock") int stock) {
         System.out.println("option is to called");
         this.color = color;
         this.size = size;
         this.stock = stock;
     };
-
-
 }

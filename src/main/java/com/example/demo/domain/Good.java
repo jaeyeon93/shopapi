@@ -30,7 +30,7 @@ public class Good {
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_option"))
     private List<Option> options = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade= CascadeType.ALL)
     private Shipping shipping;
 
     public Good(String name, String provider, int price, Option option, Shipping shipping) {
