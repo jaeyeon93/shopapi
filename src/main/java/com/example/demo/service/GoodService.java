@@ -39,7 +39,9 @@ public class GoodService {
     }
 
     public Good findById(long id) {
-        return goodRepository.findById(id).get();
+        Good good = goodRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("해당 물건이 존재하지 않습니다."));
+        return good;
     }
 
     public List<Good> findAll() {
