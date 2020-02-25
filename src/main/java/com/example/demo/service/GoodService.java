@@ -30,11 +30,18 @@ public class GoodService {
     @Autowired
     private Converter converter;
 
+//    @Transactional
+//    public Good create(String input) throws JsonProcessingException {
+//        GoodDto goodDto = converter.inputToGood(input);
+//        Good good = goodDto.of();
+//        System.out.println("" + good.toString());
+//        return goodRepository.save(good);
+//    }
+
     @Transactional
-    public Good create(String input) throws JsonProcessingException {
-        GoodDto goodDto = converter.inputToGood(input);
+    public Good create(GoodDto goodDto) throws JsonProcessingException {
         Good good = goodDto.of();
-        System.out.println("" + good.toString());
+        System.out.println("생성" + good.toString());
         return goodRepository.save(good);
     }
 

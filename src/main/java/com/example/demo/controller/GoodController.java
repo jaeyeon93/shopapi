@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 
 import com.example.demo.domain.Good;
+import com.example.demo.dto.GoodDto;
+import com.example.demo.dto.ResponseDto;
 import com.example.demo.service.GoodService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +23,15 @@ public class GoodController {
     private GoodService goodService;
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody String input) throws JsonProcessingException {
-        Good good = goodService.create(input);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/goods/" + good.getId()));
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    public ResponseDto createGood(@RequestBody GoodDto goodDto) throws JsonProcessingException {
+        Good good = goodService.create(goodDto);
+        return ResponseDto.of(HttpStatus.CREATED, "상품 생성에 성공했습니다.", good);
     }
 
-    @GetMapping("{id}")
-    public Good getGood(@PathVariable long id) {
+    @GetMapping("/{id}")
+    public ResponseDto getGood(@PathVariable long id) {
         Good good = goodService.findById(id);
-        return good;
+        return ResponseDto.of(HttpStatus.OK, "상품 조회에 성공했습니다.", good);
     }
 
     @GetMapping

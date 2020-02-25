@@ -2,6 +2,7 @@ package com.example.demo.integration;
 
 import com.example.demo.repo.GoodRepository;
 import com.example.demo.service.GoodService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -77,11 +79,17 @@ public class GoodApiTest {
     @Autowired
     private GoodRepository goodRepository;
 
-    @Test
-    public void 물건생성성공() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         mockMvc.perform(post("/goods")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(input)
-        ).andExpect(status().is(201));
+        ).andExpect(status().is(200));
+    }
+
+    @Test
+    public void 물건조회() throws Exception {
+        mockMvc.perform(get("/goods/1"))
+                .andExpect(status().isOk());
     }
 }
