@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.example.demo.dto.OptionDto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -40,4 +41,8 @@ public class Option {
         this.size = size;
         this.stock = stock;
     };
+
+    public OptionDto of() {
+        return new OptionDto(this.id, this.color, this.size, this.stock);
+    }
 }

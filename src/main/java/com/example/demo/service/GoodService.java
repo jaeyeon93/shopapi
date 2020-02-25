@@ -1,9 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Good;
+import com.example.demo.domain.Option;
 import com.example.demo.dto.GoodDto;
+import com.example.demo.dto.OptionDto;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repo.GoodRepository;
+import com.example.demo.repo.OptionRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.dto.Converter;
@@ -11,11 +16,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class GoodService {
     @Autowired
-    private GoodRepository goodRepository;
+    private final GoodRepository goodRepository;
+
+    @Autowired
+    private final OptionRepository optionRepository;
 
     @Autowired
     private Converter converter;

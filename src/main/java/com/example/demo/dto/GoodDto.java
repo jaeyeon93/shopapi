@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Getter
 @NoArgsConstructor
 public class GoodDto {
     @JsonProperty("name")
