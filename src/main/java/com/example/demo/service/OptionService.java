@@ -6,6 +6,7 @@ import com.example.demo.exception.NotFoundException;
 import com.example.demo.repo.OptionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -20,13 +21,17 @@ public class OptionService {
         return calculateStock(option, count, buyflag);
     }
 
+    @Transactional
     public Option calculateStock(Option option, int count, boolean buyflag) {
         OptionDto optionDto = option.of();
+        int stock = optionDto.getStock();
         if (buyflag) {
-            optionDto.setStock(-count);
+            stock -= count;
+            optionDto.setStock(stock);
             return optionDto.of();
         }
-        optionDto.setStock(+count);
+        stock += count;
+        optionDto.setStock(stock);
         return optionDto.of();
     }
 }

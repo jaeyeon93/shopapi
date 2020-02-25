@@ -21,22 +21,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class GoodService {
+
     @Autowired
     private final GoodRepository goodRepository;
-
-    @Autowired
-    private final OptionRepository optionRepository;
-
-    @Autowired
-    private Converter converter;
-
-//    @Transactional
-//    public Good create(String input) throws JsonProcessingException {
-//        GoodDto goodDto = converter.inputToGood(input);
-//        Good good = goodDto.of();
-//        System.out.println("" + good.toString());
-//        return goodRepository.save(good);
-//    }
 
     @Transactional
     public Good create(GoodDto goodDto) throws JsonProcessingException {
