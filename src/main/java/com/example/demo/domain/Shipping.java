@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @ToString
 @Getter
+@NoArgsConstructor
 public class Shipping {
 
     @Id
@@ -18,15 +20,13 @@ public class Shipping {
 
     @Column(nullable = false)
     @JsonProperty("price")
-    private Integer price;
+    private int price;
 
     @Column(nullable = false)
     @JsonProperty("canBundle")
     private Boolean canBundle;
 
-    public Shipping() {}
-
-    public Shipping(Method method, Integer price, Boolean canBundle) {
+    public Shipping(Method method, int price, Boolean canBundle) {
         System.out.println("shipping is called");
         this.method = method;
         this.price = price;

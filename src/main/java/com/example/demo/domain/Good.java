@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.example.demo.dto.GoodDto;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
@@ -46,6 +47,10 @@ public class Good {
         this.price = price;
         this.options = options;
         this.shipping = shipping;
+    }
+
+    public GoodDto of() {
+        return new GoodDto(this.name, this.provider, this.price, this.options, this.shipping);
     }
 
     public Long getId() {
