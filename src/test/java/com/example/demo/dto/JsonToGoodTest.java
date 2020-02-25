@@ -5,14 +5,11 @@ import static org.hamcrest.CoreMatchers.*;
 
 import com.example.demo.domain.Good;
 import com.example.demo.domain.Method;
-import com.example.demo.domain.Shipping;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class JsonToGoodTest {
     private String input = "{\n" +
@@ -64,21 +61,21 @@ public class JsonToGoodTest {
             "\t}\n" +
             "}";
 
-    private ObjectMapper mapper;
 
-    @Before
-    public void setup() {
-        mapper = new ObjectMapper();
-    }
+    @Autowired
+    private Converter converter;
+
 
     @Test
     public void convertTest() throws JsonProcessingException {
-        Good good = mapper.readValue(input, Good.class);
-        assertThat(good.getOptions().size(), is(6));
-        assertThat(good.getShipping().getMethod(), is(Method.FREE));
-        assertThat(good.getPrice(), is(20000));
-        System.out.println(instanceOf(good.getClass()));
+        GoodDto goodDto = converter.inputToGood(input);
+        System.out.println("Before finish");
+        assertThat(goodDto.getOptions().size(), is(6));
+        assertThat(goodDto.getShipping().getMethod(), is(Method.FREE));
+        assertThat(goodDto.getPrice(), is(20000));
     }
+
+
 
     @Test
     public void shipping() throws JsonProcessingException {

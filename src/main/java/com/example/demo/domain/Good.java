@@ -1,46 +1,38 @@
 package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@ToString
-@Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Good {
     @Id
     @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
-    @JsonProperty("name")
     private String name;
 
     @Column(nullable = false)
-    @JsonProperty("provider")
     private String provider;
 
     @Column(nullable = false)
-    @JsonProperty("price")
-    private Integer price;
+    private int price;
 
-    @OneToMany(targetEntity = Option.class, fetch = FetchType.LAZY)
-    @JsonProperty("options")
+    @OneToMany
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_option"))
     private List<Option> options = new ArrayList<>();
 
-    @OneToOne(targetEntity = Shipping.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonProperty("shipping")
+    @OneToOne
     private Shipping shipping;
 
-    public Good() {}
-
-    public Good(String name, String provider, Integer price, Option option, Shipping shipping) {
+    public Good(String name, String provider, int price, Option option, Shipping shipping) {
         this.name = name;
         this.provider = provider;
         this.price = price;
@@ -48,8 +40,7 @@ public class Good {
         this.shipping = shipping;
     }
 
-    public Good(String name, String provider, Integer price, List<Option> options, Shipping shipping) {
-        System.out.println("Good constructor called");
+    public Good(String name, String provider, int price, List<Option> options, Shipping shipping) {
         this.name = name;
         this.provider = provider;
         this.price = price;

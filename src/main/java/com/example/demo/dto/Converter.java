@@ -1,5 +1,6 @@
-package com.example.demo.domain;
+package com.example.demo.dto;
 
+import com.example.demo.domain.Good;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
@@ -7,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Converter {
-    public Good inputToGood(String jsonInput) throws JsonProcessingException {
-        return getMapper().readValue(jsonInput, Good.class);
+    public GoodDto inputToGood(String jsonInput) throws JsonProcessingException {
+        return getMapper().readValue(jsonInput, GoodDto.class);
     };
 
     @Bean

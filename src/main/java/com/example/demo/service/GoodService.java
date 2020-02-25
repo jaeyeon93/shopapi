@@ -1,14 +1,13 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Good;
-import com.example.demo.domain.Option;
-import com.example.demo.domain.Shipping;
+import com.example.demo.dto.GoodDto;
 import com.example.demo.repo.GoodRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.domain.Converter;
-import javax.annotation.Resource;
+import com.example.demo.dto.Converter;
+
 import java.util.List;
 
 @Service
@@ -20,9 +19,8 @@ public class GoodService {
     private Converter converter;
 
     public Good create(String input) throws JsonProcessingException {
-        Good good = converter.inputToGood(input);
-        System.out.println("good in service : " + good.toString());
-        return goodRepository.save(good);
+        GoodDto goodDto = converter.inputToGood(input);
+        return goodRepository.save(goodDto.of());
     }
 
     public Good findById(long id) {
