@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.domain.Good;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
