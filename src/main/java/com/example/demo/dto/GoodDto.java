@@ -40,14 +40,6 @@ public class GoodDto {
         this.shipping = shipping;
     }
 
-    public GoodDto(String name, String provider, int price, Option option, Shipping shipping) {
-        this.name = name;
-        this.provider = provider;
-        this.price = price;
-        this.options.add(option);
-        this.shipping = shipping;
-    }
-
     public GoodDto(String name, String provider, int price, List<Option> options, Shipping shipping) {
         this.name = name;
         this.provider = provider;
@@ -59,4 +51,5 @@ public class GoodDto {
     public Good of() {
         return new Good(this.name, this.provider, this.price, this.options, this.shipping);
     }
+
 }

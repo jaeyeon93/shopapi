@@ -6,6 +6,7 @@ import com.example.demo.dto.GoodDto;
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.service.GoodService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/goods")
+@RequiredArgsConstructor
 public class GoodController {
+
     @Autowired
-    private GoodService goodService;
+    private final GoodService goodService;
 
     @PostMapping
     public ResponseDto createGood(@RequestBody GoodDto goodDto) throws JsonProcessingException {

@@ -3,18 +3,21 @@ package com.example.demo.domain;
 import com.example.demo.dto.GoodDto;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class Good {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)
@@ -55,5 +58,10 @@ public class Good {
 
     public Long getId() {
         return id;
+    }
+
+    public Good update(Option option) {
+         this.setOptions(Arrays.asList(option));
+         return this;
     }
 }
