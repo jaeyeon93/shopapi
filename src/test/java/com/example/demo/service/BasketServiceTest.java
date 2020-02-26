@@ -35,6 +35,7 @@ public class BasketServiceTest {
     private Converter converter;
 
     private BasketInputDto basketInputDto;
+    private Basket basket;
 
     @Before
     public void setUp() throws Exception {
@@ -54,12 +55,21 @@ public class BasketServiceTest {
 
     @Test
     public void 물건추가하기() {
-        Basket basket = basketService.findById(1);
+        basket = basketService.findById(1);
         assertThat(basket.getTotalPrice(), is(20000));
         Basket result = basketService.buyOrCancelItem(1, new BasketInputDto(1, 1002, 2, true));
         assertThat(result.getTotalPrice(), is(60000));
         Option option = optionService.getOptionById(1002);
         assertThat(option.getStock(), is(8));
+    }
+
+    @Test
+    public void 물건제거하기() {
+        basket = basketService.findById(1);
+        basketService.buyOrCancelItem(1, new BasketInputDto(1, 1001, 1, false));
+        log.info("result : {}", basket.toString());
+        Option option = optionService.getOptionById(1001);
+        log.info("option : {}", option.toString());
     }
 
     private String input = "{\n" +

@@ -28,10 +28,14 @@ public class Item {
     @Column
     private int price;
 
-    public Item(long goodId, int optionId, int count, int price) {
+    @Column
+    private int shippingPrice;
+
+    public Item(long goodId, int optionId, int count, int price, int shippingPrice) {
         this.goodId = goodId;
         this.optionId = optionId;
         this.count = count;
         this.price = price;
+        this.shippingPrice = shippingPrice;
     }
 }

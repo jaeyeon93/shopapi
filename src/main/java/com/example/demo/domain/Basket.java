@@ -38,7 +38,7 @@ public class Basket {
     public int getTotalPrice() {
         int sum = 0;
         for (Item item : items)
-            sum += item.getCount() * item.getPrice();
+            sum += ((item.getCount() * item.getPrice()) + item.getShippingPrice());
         return sum;
     }
 
