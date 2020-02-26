@@ -54,8 +54,15 @@ public class BasketServiceTest {
         assertThat(basket.getTotalPrice(), is(20000));
         Basket result = basketService.buyOrCancelItem(1, new BasketInputDto(1, 1002, 2, true));
         log.info("result : {}", result.toString());
-//        assertThat(result.getTotalPrice(), is(0));
+        assertThat(result.getTotalPrice(), is(60000));
     }
+
+//    @Test
+//    public void 물건제거하기() {
+//        Basket basket = basketService.findById(1);
+//        assertThat(basket.getTotalPrice(), is(20000));
+//
+//    }
 
     private String input = "{\n" +
             "\t\"name\": \"구매제거 테스트중\",\n" +
