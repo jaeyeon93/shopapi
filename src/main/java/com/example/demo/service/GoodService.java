@@ -9,6 +9,7 @@ import com.example.demo.repo.GoodRepository;
 import com.example.demo.repo.OptionRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.dto.Converter;
@@ -20,10 +21,14 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class GoodService {
 
     @Autowired
     private final GoodRepository goodRepository;
+
+    @Autowired
+    private final OptionService optionService;
 
     @Transactional
     public Good create(GoodDto goodDto) throws JsonProcessingException {
@@ -36,6 +41,12 @@ public class GoodService {
         Good good = goodRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("해당 물건이 존재하지 않습니다."));
         return good;
+    }
+
+    public Good buyOrCancelGood(long goodId, int optionId, int count, boolean buyFlag) {
+        GoodDto goodDto = findById(goodId).of();
+        Option option = optionService.changeOption(optionId, count, buyFlag);
+
     }
 
     public List<Good> findAll() {

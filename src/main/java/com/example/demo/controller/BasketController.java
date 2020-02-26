@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Basket;
+import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.BasketResponse;
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.service.BasketService;
@@ -41,6 +42,13 @@ public class BasketController {
                 .map(BasketResponse::from)
                 .collect(Collectors.toList());
         return ResponseDto.of(HttpStatus.OK, "모든 장바구니 조회 성공", basketList);
+    }
+
+    // 물건구매
+    @PutMapping("/{userId}/buy")
+    public ResponseDto buyGood(@PathVariable long userId, @RequestBody BasketInputDto basketInputDto) {
+        Basket basket = basketService.buyGood(userId, basketInputDto);
+        return ResponseDto.of(HttpStatus.OK, "물건구매 성공", basket);
     }
 
 

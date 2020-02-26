@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Basket;
 import com.example.demo.dto.BasketDto;
+import com.example.demo.dto.BasketInputDto;
+import com.example.demo.dto.GoodDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repo.BasketRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,9 @@ public class BasketService {
     @Autowired
     private final BasketRepository basketRepository;
 
+    @Autowired
+    private final GoodService goodService;
+
     public Basket createBasket() {
         Basket basket = new BasketDto().of();
         return basketRepository.save(basket);
@@ -32,5 +37,10 @@ public class BasketService {
     public List<Basket> findAll() {
         List<Basket> baskets = basketRepository.findAll();
         return baskets;
+    }
+
+    public Basket buyGood(long userId, BasketInputDto basketInputDto) {
+        GoodDto goodDto = goodService.findById(userId).of();
+
     }
 }
