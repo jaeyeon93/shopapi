@@ -55,13 +55,4 @@ public class Good {
     public GoodDto of() {
         return new GoodDto(this.name, this.provider, this.price, this.options, this.shipping);
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Good update(Option option) {
-         this.setOptions(Arrays.asList(option));
-         return this;
-    }
 }

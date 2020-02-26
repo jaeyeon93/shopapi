@@ -38,6 +38,7 @@ public class BasketServiceTest {
         goodService.create(goodDto);
         basketService.createBasket();
         basketInputDto = new BasketInputDto(1, 1001, 1, true);
+        basketService.buyOrCancelItem(1, basketInputDto);
         assertThat(basketInputDto.getOptionId(), is(1001));
     }
 
@@ -48,10 +49,12 @@ public class BasketServiceTest {
     }
 
     @Test
-    public void findBasket() {
+    public void 물건추가하기() {
         Basket basket = basketService.findById(1);
-        assertThat(basket.getTotal_price(), is(0));
-//        basketService.buyOrCancelItem(basketInputDto)
+        assertThat(basket.getTotalPrice(), is(20000));
+        Basket result = basketService.buyOrCancelItem(1, new BasketInputDto(1, 1002, 2, true));
+        log.info("result : {}", result.toString());
+//        assertThat(result.getTotalPrice(), is(0));
     }
 
     private String input = "{\n" +

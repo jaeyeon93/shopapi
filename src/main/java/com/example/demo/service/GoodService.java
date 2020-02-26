@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Good;
+import com.example.demo.domain.Item;
 import com.example.demo.domain.Option;
 import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.GoodDto;
@@ -46,11 +47,11 @@ public class GoodService {
         return good;
     }
 
-    public Good buyOrCancelGood(BasketInputDto basketInputDto) {
+    public Item buyOrCancelGood(BasketInputDto basketInputDto) {
         Good good = findById(basketInputDto.getGoodId());
-        Option option = optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
-        good.update(option);
-        return good;
+        optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
+        Item item = new Item(basketInputDto.getGoodId(), basketInputDto.getOptionId(), basketInputDto.getCount(), good.getPrice());
+        return item;
     }
 
     public List<Good> findAll() {

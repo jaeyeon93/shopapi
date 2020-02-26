@@ -43,16 +43,9 @@ public class BasketService {
         return baskets;
     }
 
-//    public Basket buyOrCancelItem(long userId, BasketInputDto basketInputDto) {
-//        Good good = goodService.buyOrCancelGood(basketInputDto);
-//        Basket basket = findById(userId).update(good);
-//        log.info("업데이트된 장바구니 : {}", basket.toString());
-//        return basketRepository.save(basket);
-//    }
-
     public Basket buyOrCancelItem(long userId, BasketInputDto basketInputDto) {
         Item item = itemService.buyOrCancelItem(basketInputDto);
-        Basket basket = findById(userId).update(good);
+        Basket basket = findById(userId).update(item);
         log.info("업데이트된 장바구니 : {}", basket.toString());
         return basketRepository.save(basket);
     }

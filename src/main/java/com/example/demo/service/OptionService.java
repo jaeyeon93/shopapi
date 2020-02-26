@@ -21,6 +21,7 @@ public class OptionService {
         return calculateStock(option, count, buyflag);
     }
 
+    // 여기서 재고의 수량변경
     @Transactional
     public Option calculateStock(Option option, int count, boolean buyflag) {
         OptionDto optionDto = option.of();
