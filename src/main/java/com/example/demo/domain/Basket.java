@@ -1,10 +1,8 @@
 package com.example.demo.domain;
 
 import com.example.demo.dto.BasketDto;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -15,24 +13,39 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Slf4j
 public class Basket {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    private List<Good> goods = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Item> items = new ArrayList<>();
 
     @Column
     @ColumnDefault("0")
-    private int total_price;
+    private int totalPrice;
 
-    public Basket update(Good good) {
-        this.goods.add(good);
+    public Basket(List<Item> items, int totalPrice) {
+        this.items = items;
+        this.totalPrice = totalPrice;
+    }
+
+    public Basket update(Item item) {
+        log.info("장바구니에서 아이템 추가 : {}", item.toString());
+        this.items.add(item);
         return this;
     }
 
+    public int getTotalPrice() {
+        int sum = 0;
+        for (Item item : items)
+            sum += ((item.getCount() * item.getPrice()) + item.getShippingPrice());
+        return sum;
+    }
+
     public BasketDto of() {
-        return new BasketDto(this.goods);
+        return new BasketDto(this.items, this.totalPrice);
     }
 }

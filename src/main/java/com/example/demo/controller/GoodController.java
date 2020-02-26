@@ -8,13 +8,9 @@ import com.example.demo.service.GoodService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -33,7 +29,7 @@ public class GoodController {
 
     @GetMapping("/{id}")
     public ResponseDto getGood(@PathVariable long id) {
-        Good good = goodService.findById(id);
+        Good good = goodService.getGoodById(id);
         return ResponseDto.of(HttpStatus.OK, "상품 조회에 성공했습니다.", good);
     }
 

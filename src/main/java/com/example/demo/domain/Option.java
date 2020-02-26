@@ -40,7 +40,7 @@ public class Option {
         this.color = color;
         this.size = size;
         this.stock = stock;
-    };
+    }
 
     public OptionDto of() {
         return new OptionDto(this.id, this.color, this.size, this.stock);

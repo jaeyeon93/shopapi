@@ -1,26 +1,19 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Good;
-import com.example.demo.domain.Option;
+import com.example.demo.domain.Item;
 import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.GoodDto;
-import com.example.demo.dto.OptionDto;
 import com.example.demo.exception.NotFoundException;
+import com.example.demo.exception.StockException;
 import com.example.demo.repo.GoodRepository;
-import com.example.demo.repo.OptionRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.dto.Converter;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,25 +27,28 @@ public class GoodService {
     private final OptionService optionService;
 
     @Transactional
-    public Good create(GoodDto goodDto) throws JsonProcessingException {
+    public Good create(GoodDto goodDto) {
         Good good = goodDto.of();
-        System.out.println("생성" + good.toString());
         return goodRepository.save(good);
     }
 
-    public Good findById(long id) {
+    @Transactional
+    public Good getGoodById(long id) {
         Good good = goodRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("해당 물건이 존재하지 않습니다."));
         return good;
     }
 
-    public Good buyOrCancelGood(BasketInputDto basketInputDto) {
-        Good good = findById(basketInputDto.getGoodId());
-        Option option = optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
-        good.update(option);
-        return good;
+    // 장바구니에서 물건을 구매. Good과 Option에서 GoodId, OptionId, 구매갯수, 물건가격, 배송가격을 측정한다.
+    public Item buyOrCancelGood(BasketInputDto basketInputDto) throws StockException {
+        Good good = getGoodById(basketInputDto.getGoodId());
+        optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
+        Item item = new Item(basketInputDto.getGoodId(), basketInputDto.getOptionId(), basketInputDto.getCount(), good.getPrice(), good.getShipping().getPrice());
+        log.info("아이템 생성 {}", item.toString());
+        return item;
     }
 
+    @Transactional
     public List<Good> findAll() {
         return goodRepository.findAll();
     }

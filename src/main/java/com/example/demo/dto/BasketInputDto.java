@@ -26,4 +26,11 @@ public class BasketInputDto {
         this.count = count;
         this.flag = flag;
     }
+
+    @JsonCreator
+    public BasketInputDto(@JsonProperty("goodId") long goodId, @JsonProperty("optionId") int optionId, @JsonProperty("count") int count) {
+        this.goodId = goodId;
+        this.optionId = optionId;
+        this.count = count;
+    }
 }
