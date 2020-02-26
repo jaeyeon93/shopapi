@@ -1,56 +1,57 @@
-package com.example.demo.integration;
+package com.example.demo.service;
 
 import com.example.demo.domain.Basket;
-import com.example.demo.service.BasketService;
+import com.example.demo.domain.Good;
+import com.example.demo.dto.BasketInputDto;
+import com.example.demo.dto.Converter;
+import com.example.demo.dto.GoodDto;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
-public class BasketApiTest {
-    @Mock
+@RunWith(SpringRunner.class)
+@Slf4j
+public class BasketServiceTest {
+
+    @Autowired
     private BasketService basketService;
 
     @Autowired
-    private MockMvc mockMvc;
+    private GoodService goodService;
+
+    @Autowired
+    private Converter converter;
+
+    private BasketInputDto basketInputDto;
 
     @Before
     public void setUp() throws Exception {
-        mockMvc.perform(post("/goods")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(input)
-        ).andExpect(status().isOk());
-        mockMvc.perform(post("/baskets"))
-                .andExpect(status().isOk());
+        GoodDto goodDto = converter.inputToGood(input);
+        goodService.create(goodDto);
+        basketService.createBasket();
+        basketInputDto = new BasketInputDto(1, 1001, 1, true);
+        assertThat(basketInputDto.getOptionId(), is(1001));
     }
 
     @Test
-    public void 모든장바구니조회() throws Exception {
-        mockMvc.perform(get("/baskets"))
-                .andExpect(status().isOk());
+    public void findGood() {
+        Good good = goodService.findById(1);
+        assertThat(good.getPrice(), is(20000));
     }
 
     @Test
-    public void 생성된장바구니조회() throws Exception {
-        mockMvc.perform(get("/baskets/1"))
-                .andExpect(status().isOk());
+    public void findBasket() {
+        Basket basket = basketService.findById(1);
+        assertThat(basket.getTotal_price(), is(0));
+//        basketService.buyOrCancelItem(basketInputDto)
     }
 
     private String input = "{\n" +
@@ -101,5 +102,4 @@ public class BasketApiTest {
             "\t\"canBundle\": true\n" +
             "\t}\n" +
             "}";
-
 }

@@ -47,7 +47,7 @@ public class BasketController {
     // 물건구매
     @PutMapping("/{userId}/buy")
     public ResponseDto buyGood(@PathVariable long userId, @RequestBody BasketInputDto basketInputDto) {
-        Basket basket = basketService.buyGood(userId, basketInputDto);
+        Basket basket = basketService.buyOrCancelItem(userId, basketInputDto);
         return ResponseDto.of(HttpStatus.OK, "물건구매 성공", basket);
     }
 

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Basket;
 import com.example.demo.domain.Good;
+import com.example.demo.domain.Item;
 import com.example.demo.dto.BasketDto;
 import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.GoodDto;
@@ -24,7 +25,7 @@ public class BasketService {
     private final BasketRepository basketRepository;
 
     @Autowired
-    private final GoodService goodService;
+    private final ItemService itemService;
 
     public Basket createBasket() {
         Basket basket = new BasketDto().of();
@@ -42,10 +43,19 @@ public class BasketService {
         return baskets;
     }
 
-    public Basket buyGood(long userId, BasketInputDto basketInputDto) {
-        Good good = goodService.buyOrCancelGood(basketInputDto);
+//    public Basket buyOrCancelItem(long userId, BasketInputDto basketInputDto) {
+//        Good good = goodService.buyOrCancelGood(basketInputDto);
+//        Basket basket = findById(userId).update(good);
+//        log.info("업데이트된 장바구니 : {}", basket.toString());
+//        return basketRepository.save(basket);
+//    }
+
+    public Basket buyOrCancelItem(long userId, BasketInputDto basketInputDto) {
+        Item item = itemService.buyOrCancelItem(basketInputDto);
         Basket basket = findById(userId).update(good);
         log.info("업데이트된 장바구니 : {}", basket.toString());
         return basketRepository.save(basket);
     }
+
+
 }
