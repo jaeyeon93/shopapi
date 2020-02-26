@@ -49,13 +49,13 @@ public class BasketServiceTest {
 
     @Test
     public void findGood() {
-        Good good = goodService.findById(1);
+        Good good = goodService.getGoodById(1);
         assertThat(good.getPrice(), is(20000));
     }
 
     @Test
     public void 물건추가하기() {
-        basket = basketService.findById(1);
+        basket = basketService.getBasketById(1);
         assertThat(basket.getTotalPrice(), is(20000));
         Basket result = basketService.buyOrCancelItem(1, new BasketInputDto(1, 1002, 2, true));
         assertThat(result.getTotalPrice(), is(60000));
@@ -65,11 +65,12 @@ public class BasketServiceTest {
 
     @Test
     public void 물건제거하기() {
-        basket = basketService.findById(1);
+        basket = basketService.getBasketById(1);
         basketService.buyOrCancelItem(1, new BasketInputDto(1, 1001, 1, false));
         log.info("result : {}", basket.toString());
         Option option = optionService.getOptionById(1001);
         log.info("option : {}", option.toString());
+        assertThat(basket.getItems().size(), is(0));
     }
 
     private String input = "{\n" +

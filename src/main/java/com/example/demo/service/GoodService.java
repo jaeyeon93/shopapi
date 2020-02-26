@@ -32,7 +32,7 @@ public class GoodService {
     }
 
     @Transactional
-    public Good findById(long id) {
+    public Good getGoodById(long id) {
         Good good = goodRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("해당 물건이 존재하지 않습니다."));
         return good;
@@ -40,12 +40,13 @@ public class GoodService {
 
     // 장바구니에서 물건을 구매. Good과 Option에서 GoodId, OptionId, 구매갯수, 물건가격, 배송가격을 측정한다.
     public Item buyOrCancelGood(BasketInputDto basketInputDto) {
-        Good good = findById(basketInputDto.getGoodId());
+        Good good = getGoodById(basketInputDto.getGoodId());
         optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
         Item item = new Item(basketInputDto.getGoodId(), basketInputDto.getOptionId(), basketInputDto.getCount(), good.getPrice(), good.getShipping().getPrice());
         return item;
     }
 
+    @Transactional
     public List<Good> findAll() {
         return goodRepository.findAll();
     }

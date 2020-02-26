@@ -31,7 +31,7 @@ public class BasketController {
     // id로 장바구니 조회
     @GetMapping("/{id}")
     public ResponseDto getBasket(@PathVariable long id) {
-        Basket basket = basketService.findById(id);
+        Basket basket = basketService.getBasketById(id);
         return ResponseDto.of(HttpStatus.OK, "장바구니 조회에 성공했습니다.", basket);
     }
 
