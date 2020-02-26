@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Basket;
 import com.example.demo.domain.Good;
+import com.example.demo.domain.Option;
 import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.Converter;
 import com.example.demo.dto.GoodDto;
@@ -26,6 +27,9 @@ public class BasketServiceTest {
 
     @Autowired
     private GoodService goodService;
+
+    @Autowired
+    private OptionService optionService;
 
     @Autowired
     private Converter converter;
@@ -53,16 +57,10 @@ public class BasketServiceTest {
         Basket basket = basketService.findById(1);
         assertThat(basket.getTotalPrice(), is(20000));
         Basket result = basketService.buyOrCancelItem(1, new BasketInputDto(1, 1002, 2, true));
-        log.info("result : {}", result.toString());
         assertThat(result.getTotalPrice(), is(60000));
+        Option option = optionService.getOptionById(1002);
+        assertThat(option.getStock(), is(8));
     }
-
-//    @Test
-//    public void 물건제거하기() {
-//        Basket basket = basketService.findById(1);
-//        assertThat(basket.getTotalPrice(), is(20000));
-//
-//    }
 
     private String input = "{\n" +
             "\t\"name\": \"구매제거 테스트중\",\n" +

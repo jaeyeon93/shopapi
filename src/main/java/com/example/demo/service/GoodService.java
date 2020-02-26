@@ -37,10 +37,10 @@ public class GoodService {
     @Transactional
     public Good create(GoodDto goodDto) throws JsonProcessingException {
         Good good = goodDto.of();
-        System.out.println("생성" + good.toString());
         return goodRepository.save(good);
     }
 
+    @Transactional
     public Good findById(long id) {
         Good good = goodRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("해당 물건이 존재하지 않습니다."));
@@ -48,6 +48,7 @@ public class GoodService {
     }
 
     public Item buyOrCancelGood(BasketInputDto basketInputDto) {
+        log.info("장바구니에서 물건구매");
         Good good = findById(basketInputDto.getGoodId());
         optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
         Item item = new Item(basketInputDto.getGoodId(), basketInputDto.getOptionId(), basketInputDto.getCount(), good.getPrice());
