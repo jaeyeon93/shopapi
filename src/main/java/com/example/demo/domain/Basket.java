@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Basket {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @OneToMany
@@ -26,6 +26,11 @@ public class Basket {
     @Column
     @ColumnDefault("0")
     private int total_price;
+
+    public Basket update(Good good) {
+        this.goods.add(good);
+        return this;
+    }
 
     public BasketDto of() {
         return new BasketDto(this.goods);

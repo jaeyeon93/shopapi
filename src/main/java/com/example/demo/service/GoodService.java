@@ -47,11 +47,9 @@ public class GoodService {
     }
 
     public Good buyOrCancelGood(BasketInputDto basketInputDto) {
-        GoodDto goodDto = findById(basketInputDto.getGoodId()).of();
+        Good good = findById(basketInputDto.getGoodId());
         Option option = optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
-        goodDto.setOptions(Arrays.asList(option));
-        Good good = goodDto.of();
-        log.info("buyCancel 한 뒤의 Good : {}", good.toString());
+        good.update(option);
         return good;
     }
 

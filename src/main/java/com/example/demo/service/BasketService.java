@@ -43,11 +43,9 @@ public class BasketService {
     }
 
     public Basket buyGood(long userId, BasketInputDto basketInputDto) {
-        log.info("buyGood 메서드에서 전달받은 basketInputDto : {}", basketInputDto.toString());
         Good good = goodService.buyOrCancelGood(basketInputDto);
-        BasketDto basketDto = findById(userId).of();
-        basketDto.getGoods().add(good);
-        log.info("저장되기 직전의 basketDto : {}", basketDto.toString());
-        return basketRepository.save(basketDto.of());
+        Basket basket = findById(userId).update(good);
+        log.info("업데이트된 장바구니 : {}", basket.toString());
+        return basketRepository.save(basket);
     }
 }
