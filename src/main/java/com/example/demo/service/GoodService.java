@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Good;
 import com.example.demo.domain.Option;
+import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.GoodDto;
 import com.example.demo.dto.OptionDto;
 import com.example.demo.exception.NotFoundException;
@@ -16,6 +17,8 @@ import com.example.demo.dto.Converter;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,10 +46,13 @@ public class GoodService {
         return good;
     }
 
-    public Good buyOrCancelGood(long goodId, int optionId, int count, boolean buyFlag) {
-        GoodDto goodDto = findById(goodId).of();
-        Option option = optionService.changeOption(optionId, count, buyFlag);
-
+    public Good buyOrCancelGood(BasketInputDto basketInputDto) {
+        GoodDto goodDto = findById(basketInputDto.getGoodId()).of();
+        Option option = optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
+        goodDto.setOptions(Arrays.asList(option));
+        Good good = goodDto.of();
+        log.info("buyCancel 한 뒤의 Good : {}", good.toString());
+        return good;
     }
 
     public List<Good> findAll() {

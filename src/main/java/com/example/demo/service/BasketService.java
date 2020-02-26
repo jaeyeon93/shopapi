@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Basket;
+import com.example.demo.domain.Good;
 import com.example.demo.dto.BasketDto;
 import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.GoodDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repo.BasketRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BasketService {
 
     @Autowired
@@ -40,7 +43,11 @@ public class BasketService {
     }
 
     public Basket buyGood(long userId, BasketInputDto basketInputDto) {
-        GoodDto goodDto = goodService.findById(userId).of();
-
+        log.info("buyGood 메서드에서 전달받은 basketInputDto : {}", basketInputDto.toString());
+        Good good = goodService.buyOrCancelGood(basketInputDto);
+        BasketDto basketDto = findById(userId).of();
+        basketDto.getGoods().add(good);
+        log.info("저장되기 직전의 basketDto : {}", basketDto.toString());
+        return basketRepository.save(basketDto.of());
     }
 }

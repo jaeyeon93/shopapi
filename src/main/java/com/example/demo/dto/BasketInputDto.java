@@ -16,14 +16,14 @@ public class BasketInputDto {
     @JsonProperty("count")
     private int count;
 
-    @JsonProperty("buyflag")
-    private boolean buyflag;
+    @JsonProperty("flag")
+    private boolean flag;
 
     @JsonCreator
-    public BasketInputDto(@JsonProperty("goodId") long goodId, @JsonProperty("optoinId") int optionId, @JsonProperty("count") int count, @JsonProperty("buyflag") boolean buyflag) {
+    public BasketInputDto(@JsonProperty("goodId") long goodId, @JsonProperty("optoinId") int optionId, @JsonProperty("count") int count, @JsonProperty("flag") boolean flag) {
         this.goodId = goodId;
         this.optionId = optionId;
-        this.buyflag = buyflag;
         this.count = count;
+        this.flag = flag;
     }
 }
