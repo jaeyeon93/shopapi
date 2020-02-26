@@ -12,10 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,9 +37,14 @@ public class BasketApiTest {
     }
 
     @Test
-    public void 생성된장바구니조회() {
-        Basket basket = basketService.findByUserId(0);
-        System.out.println(basket.toString());
-        assertThat(basket.getId(), is(1));
+    public void 모든장바구니조회() throws Exception {
+        mockMvc.perform(get("/baskets"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void 생성된장바구니조회() throws Exception {
+        mockMvc.perform(get("/baskets/1"))
+                .andExpect(status().isOk());
     }
 }

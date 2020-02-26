@@ -7,6 +7,9 @@ import com.example.demo.repo.BasketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +23,14 @@ public class BasketService {
         return basketRepository.save(basket);
     }
 
-    public Basket findByUserId(long userId) {
-        Basket basket = basketRepository.findById(userId)
+    public Basket findById(long id) {
+        Basket basket = basketRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("해당 장바구니를 찾지못합니다."));
         return basket;
+    }
+
+    public List<Basket> findAll() {
+        List<Basket> baskets = basketRepository.findAll();
+        return baskets;
     }
 }
