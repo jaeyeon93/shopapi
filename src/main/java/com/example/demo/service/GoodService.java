@@ -44,6 +44,7 @@ public class GoodService {
         Good good = getGoodById(basketInputDto.getGoodId());
         optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
         Item item = new Item(basketInputDto.getGoodId(), basketInputDto.getOptionId(), basketInputDto.getCount(), good.getPrice(), good.getShipping().getPrice());
+        log.info("아이템 생성 {}", item.toString());
         return item;
     }
 

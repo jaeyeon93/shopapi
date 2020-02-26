@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 import com.example.demo.dto.BasketDto;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,7 @@ public class Basket {
     }
 
     public Basket update(Item item) {
+        log.info("장바구니에서 아이템 추가 : {}", item.toString());
         this.items.add(item);
         return this;
     }

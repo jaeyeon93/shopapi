@@ -44,7 +44,7 @@ public class BasketServiceTest {
         goodService.create(goodDto);
         basketService.createBasket();
         basketInputDto = new BasketInputDto(1, 1001, 1, false);
-        basketService.buyOrNot(1, basketInputDto);
+        basketService.buyOrAddGood(1, basketInputDto);
         assertThat(basketInputDto.getOptionId(), is(1001));
     }
 
@@ -58,7 +58,7 @@ public class BasketServiceTest {
     public void 물건추가하기() throws StockException {
         basket = basketService.getBasketById(1);
         assertThat(basket.getTotalPrice(), is(20000));
-        Basket result = basketService.buyOrNot(1, new BasketInputDto(1, 1002, 2, false));
+        Basket result = basketService.buyOrAddGood(1, new BasketInputDto(1, 1002, 2, false));
         assertThat(result.getTotalPrice(), is(60000));
         Option option = optionService.getOptionById(1002);
         assertThat(option.getStock(), is(10));
@@ -67,9 +67,31 @@ public class BasketServiceTest {
     @Test
     public void 물건구매하기() throws StockException {
         basket = basketService.getBasketById(1);
-        basketService.buyOrNot(1, new BasketInputDto(1, 1001, 1, true));
+        basketService.buyOrAddGood(1, new BasketInputDto(1, 1001, 1, true));
         Option option = optionService.getOptionById(1001);
         assertThat(option.getStock(), is(9));
+    }
+
+    @Test
+    public void 물건제거하기() throws Exception {
+        basket = basketService.getBasketById(1);
+        basketService.buyOrAddGood(1, new BasketInputDto(1, 1001, 1, false));
+        basketService.buyOrAddGood(1, new BasketInputDto(1, 1003, 3, false));
+        basketService.removeItem(1, new BasketInputDto(1, 1003, 2));
+        Basket result = basketService.getBasketById(1);
+        log.info("테스트 코드 실행 후 {}", basket.toString());
+        assertThat(result.getItems().size(), is(3));
+        assertThat(basketService.getItemByOptionId(result.getItems(), 1003).getCount(), is(1));
+    }
+
+    @Test
+    public void 물건제거하기_아이템속성이제거된다() throws StockException {
+        basket = basketService.getBasketById(1);
+        basketService.buyOrAddGood(1, new BasketInputDto(1, 1002, 2, false));
+        basketService.removeItem(1, new BasketInputDto(1, 1002, 2));
+        Basket result = basketService.getBasketById(1);
+        log.info("아이템속성 제거 : {}", result.toString());
+        assertThat(result.getItems().size(), is(1));
     }
 
     private String input = "{\n" +
