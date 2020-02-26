@@ -4,6 +4,7 @@ import com.example.demo.domain.Basket;
 import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.BasketResponse;
 import com.example.demo.dto.ResponseDto;
+import com.example.demo.exception.StockException;
 import com.example.demo.service.BasketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,8 @@ public class BasketController {
 
     // 물건구매
     @PutMapping("/{userId}/buy")
-    public ResponseDto buyGood(@PathVariable long userId, @RequestBody BasketInputDto basketInputDto) {
-        Basket basket = basketService.buyOrCancelItem(userId, basketInputDto);
+    public ResponseDto buyGood(@PathVariable long userId, @RequestBody BasketInputDto basketInputDto) throws StockException {
+        Basket basket = basketService.buyOrNot(userId, basketInputDto);
         return ResponseDto.of(HttpStatus.OK, "물건구매 성공", basket);
     }
 

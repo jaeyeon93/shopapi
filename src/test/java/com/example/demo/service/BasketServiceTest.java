@@ -6,6 +6,7 @@ import com.example.demo.domain.Option;
 import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.Converter;
 import com.example.demo.dto.GoodDto;
+import com.example.demo.exception.StockException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,8 +43,8 @@ public class BasketServiceTest {
         GoodDto goodDto = converter.inputToGood(input);
         goodService.create(goodDto);
         basketService.createBasket();
-        basketInputDto = new BasketInputDto(1, 1001, 1, true);
-        basketService.buyOrCancelItem(1, basketInputDto);
+        basketInputDto = new BasketInputDto(1, 1001, 1, false);
+        basketService.buyOrNot(1, basketInputDto);
         assertThat(basketInputDto.getOptionId(), is(1001));
     }
 
@@ -54,23 +55,21 @@ public class BasketServiceTest {
     }
 
     @Test
-    public void 물건추가하기() {
+    public void 물건추가하기() throws StockException {
         basket = basketService.getBasketById(1);
         assertThat(basket.getTotalPrice(), is(20000));
-        Basket result = basketService.buyOrCancelItem(1, new BasketInputDto(1, 1002, 2, true));
+        Basket result = basketService.buyOrNot(1, new BasketInputDto(1, 1002, 2, false));
         assertThat(result.getTotalPrice(), is(60000));
         Option option = optionService.getOptionById(1002);
-        assertThat(option.getStock(), is(8));
+        assertThat(option.getStock(), is(10));
     }
 
     @Test
-    public void 물건제거하기() {
+    public void 물건구매하기() throws StockException {
         basket = basketService.getBasketById(1);
-        basketService.buyOrCancelItem(1, new BasketInputDto(1, 1001, 1, false));
-        log.info("result : {}", basket.toString());
+        basketService.buyOrNot(1, new BasketInputDto(1, 1001, 1, true));
         Option option = optionService.getOptionById(1001);
-        log.info("option : {}", option.toString());
-        assertThat(basket.getItems().size(), is(0));
+        assertThat(option.getStock(), is(9));
     }
 
     private String input = "{\n" +

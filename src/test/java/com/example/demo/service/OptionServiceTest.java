@@ -52,13 +52,13 @@ public class OptionServiceTest {
     }
 
     @Test
-    public void 물건구매할때재고변화() {
+    public void 물건구매할때재고변화() throws Exception {
         option = optionService.changeOption(1001, 2, true);
         assertThat(option.getStock(), is(8));
     }
 
     @Test
-    public void 물건취소할때의재고변화() {
+    public void 물건취소할때의재고변화()throws Exception {
         option = optionService.changeOption(1001, 2, false);
         assertThat(option.getStock(), is(12));
     }

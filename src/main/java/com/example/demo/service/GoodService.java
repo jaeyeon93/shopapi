@@ -5,6 +5,7 @@ import com.example.demo.domain.Item;
 import com.example.demo.dto.BasketInputDto;
 import com.example.demo.dto.GoodDto;
 import com.example.demo.exception.NotFoundException;
+import com.example.demo.exception.StockException;
 import com.example.demo.repo.GoodRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class GoodService {
     }
 
     // 장바구니에서 물건을 구매. Good과 Option에서 GoodId, OptionId, 구매갯수, 물건가격, 배송가격을 측정한다.
-    public Item buyOrCancelGood(BasketInputDto basketInputDto) {
+    public Item buyOrCancelGood(BasketInputDto basketInputDto) throws StockException {
         Good good = getGoodById(basketInputDto.getGoodId());
         optionService.changeOption(basketInputDto.getOptionId(), basketInputDto.getCount(), basketInputDto.isFlag());
         Item item = new Item(basketInputDto.getGoodId(), basketInputDto.getOptionId(), basketInputDto.getCount(), good.getPrice(), good.getShipping().getPrice());
