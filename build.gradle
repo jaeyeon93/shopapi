@@ -34,6 +34,8 @@ dependencies {
     runtime('com.h2database:h2')
     compile group: 'org.javassist', name: 'javassist', version: '3.26.0-GA'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 }
 
 test {
