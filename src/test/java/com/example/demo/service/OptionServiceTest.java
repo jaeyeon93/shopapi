@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.domain.Good;
 import com.example.demo.domain.Option;
 import com.example.demo.dto.Converter;
+import com.example.demo.dto.GoodDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repo.GoodRepository;
 import com.example.demo.repo.OptionRepository;
@@ -39,9 +40,10 @@ public class OptionServiceTest {
 
     @Before
     public void setUp() throws JsonProcessingException {
-        good = converter.inputToGood(input).of();
-        goodRepository.save(good);
-        option = optionRepository.findById(1001)
+        GoodDto goodDto = converter.inputToGood(input);
+        log.info("생성된 dto : {}", goodDto.toString());
+        goodRepository.save(goodDto.of());
+        option = optionRepository.findByOptionId(1001)
                 .orElseThrow(() -> new NotFoundException("해당옵션을 찾을 수 없습니다."));
     }
 
@@ -69,37 +71,37 @@ public class OptionServiceTest {
             "\t\"price\": 20000,\n" +
             "\t\"options\": [\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1001,\n" +
+            "\t\t\t\"optionId\": 1001,\n" +
             "\t\t\t\"color\": \"yellow\",\n" +
             "\t\t\t\"size\": \"S\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1002,\n" +
+            "\t\t\t\"optionId\": 1002,\n" +
             "\t\t\t\"color\": \"yellow\",\n" +
             "\t\t\t\"size\": \"M\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1003,\n" +
+            "\t\t\t\"optionId\": 1003,\n" +
             "\t\t\t\"color\": \"yellow\",\n" +
             "\t\t\t\"size\": \"L\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1004,\n" +
+            "\t\t\t\"optionId\": 1004,\n" +
             "\t\t\t\"color\": \"blue\",\n" +
             "\t\t\t\"size\": \"S\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1005,\n" +
+            "\t\t\t\"optionId\": 1005,\n" +
             "\t\t\t\"color\": \"blue\",\n" +
             "\t\t\t\"size\": \"M\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1006,\n" +
+            "\t\t\t\"optionId\": 1006,\n" +
             "\t\t\t\"color\": \"blue\",\n" +
             "\t\t\t\"size\": \"L\",\n" +
             "\t\t\t\"stock\": 10\n" +

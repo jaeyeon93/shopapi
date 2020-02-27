@@ -45,7 +45,7 @@ public class BasketServiceTest {
         basketService.createBasket();
         basketInputDto = new BasketInputDto(1, 1001, 1, false);
         basketService.buyOrAddGood(1, basketInputDto);
-//        assertThat(basketInputDto.getOptionId(), is(1001));
+        assertThat(basketInputDto.getOptionId(), is(1001));
     }
 
     @Test
@@ -54,21 +54,22 @@ public class BasketServiceTest {
         assertThat(good.getPrice(), is(20000));
     }
 
-//    @Test
-//    public void 물건추가하기() throws StockException {
-//        basket = basketService.getBasketById(1);
-//        assertThat(basket.getTotalPrice(), is(20000));
-//        Basket result = basketService.buyOrAddGood(1, new BasketInputDto(1, 1002, 2, false));
+    @Test
+    public void 물건추가하기() throws StockException {
+        basket = basketService.getBasketById(1);
+        assertThat(basket.getTotalPrice(), is(20000));
+        Basket result = basketService.buyOrAddGood(1, new BasketInputDto(1, 1002, 2, false));
+        log.info("결과 : {}", result.toString());
 //        assertThat(result.getTotalPrice(), is(60000));
-//        Option option = optionService.getOptionById(1002);
+//        Option option = optionService.getOptionByOptionId(1002);
 //        assertThat(option.getStock(), is(10));
-//    }
-//
+    }
+
 //    @Test
 //    public void 물건구매하기() throws StockException {
 //        basket = basketService.getBasketById(1);
 //        basketService.buyOrAddGood(1, new BasketInputDto(1, 1001, 1, true));
-//        Option option = optionService.getOptionById(1001);
+//        Option option = optionService.getOptionByOptionId(1001);
 //        assertThat(option.getStock(), is(9));
 //    }
 //
