@@ -59,8 +59,9 @@ public class BasketServiceTest {
         basket = basketService.getBasketById(1);
         assertThat(basket.getTotalPrice(), is(20000));
         Basket result = basketService.buyOrAddGood(1, new BasketInputDto(1, 1002, 2, false));
+        log.info("결과 : {}", result.toString());
         assertThat(result.getTotalPrice(), is(60000));
-        Option option = optionService.getOptionById(1002);
+        Option option = optionService.getOptionByOptionId(1002);
         assertThat(option.getStock(), is(10));
     }
 
@@ -68,7 +69,7 @@ public class BasketServiceTest {
     public void 물건구매하기() throws StockException {
         basket = basketService.getBasketById(1);
         basketService.buyOrAddGood(1, new BasketInputDto(1, 1001, 1, true));
-        Option option = optionService.getOptionById(1001);
+        Option option = optionService.getOptionByOptionId(1001);
         assertThat(option.getStock(), is(9));
     }
 
@@ -100,37 +101,37 @@ public class BasketServiceTest {
             "\t\"price\": 20000,\n" +
             "\t\"options\": [\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1001,\n" +
+            "\t\t\t\"optionId\": 1001,\n" +
             "\t\t\t\"color\": \"yellow\",\n" +
             "\t\t\t\"size\": \"S\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1002,\n" +
+            "\t\t\t\"optionId\": 1002,\n" +
             "\t\t\t\"color\": \"yellow\",\n" +
             "\t\t\t\"size\": \"M\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1003,\n" +
+            "\t\t\t\"optionId\": 1003,\n" +
             "\t\t\t\"color\": \"yellow\",\n" +
             "\t\t\t\"size\": \"L\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1004,\n" +
+            "\t\t\t\"optionId\": 1004,\n" +
             "\t\t\t\"color\": \"blue\",\n" +
             "\t\t\t\"size\": \"S\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1005,\n" +
+            "\t\t\t\"optionId\": 1005,\n" +
             "\t\t\t\"color\": \"blue\",\n" +
             "\t\t\t\"size\": \"M\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1006,\n" +
+            "\t\t\t\"optionId\": 1006,\n" +
             "\t\t\t\"color\": \"blue\",\n" +
             "\t\t\t\"size\": \"L\",\n" +
             "\t\t\t\"stock\": 10\n" +

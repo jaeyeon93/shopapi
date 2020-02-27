@@ -20,7 +20,7 @@ public class OptionService {
 
     @Transactional
     public Option changeOption(int optionId, int count, boolean buyflag) throws StockException {
-        Option option = optionRepository.findById(optionId)
+        Option option = optionRepository.findByOptionId(optionId)
                 .orElseThrow(() -> new NotFoundException("해당 옵션이 존재하지 않습니다."));
         return optionRepository.save(calculateStock(option, count, buyflag));
     }
@@ -41,8 +41,8 @@ public class OptionService {
 
     // 옵션아이디로 가져오기
     @Transactional
-    public Option getOptionById(int optionId) {
-        Option option = optionRepository.findById(optionId)
+    public Option getOptionByOptionId(int optionId) {
+        Option option = optionRepository.findByOptionId(optionId)
                 .orElseThrow(() -> new NotFoundException("해당 옵션을 찾을 수 없습니다."));
         return option;
     }

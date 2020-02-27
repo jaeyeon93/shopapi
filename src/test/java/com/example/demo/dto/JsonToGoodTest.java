@@ -23,37 +23,37 @@ public class JsonToGoodTest {
             "\t\"price\": 20000,\n" +
             "\t\"options\": [\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1001,\n" +
+            "\t\t\t\"optionId\": 1001,\n" +
             "\t\t\t\"color\": \"yellow\",\n" +
             "\t\t\t\"size\": \"S\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1002,\n" +
+            "\t\t\t\"optionId\": 1002,\n" +
             "\t\t\t\"color\": \"yellow\",\n" +
             "\t\t\t\"size\": \"M\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1003,\n" +
+            "\t\t\t\"optionId\": 1003,\n" +
             "\t\t\t\"color\": \"yellow\",\n" +
             "\t\t\t\"size\": \"L\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1004,\n" +
+            "\t\t\t\"optionId\": 1004,\n" +
             "\t\t\t\"color\": \"blue\",\n" +
             "\t\t\t\"size\": \"S\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1005,\n" +
+            "\t\t\t\"optionId\": 1005,\n" +
             "\t\t\t\"color\": \"blue\",\n" +
             "\t\t\t\"size\": \"M\",\n" +
             "\t\t\t\"stock\": 10\n" +
             "\t\t},\n" +
             "\t\t{\n" +
-            "\t\t\t\"id\": 1006,\n" +
+            "\t\t\t\"optionId\": 1006,\n" +
             "\t\t\t\"color\": \"blue\",\n" +
             "\t\t\t\"size\": \"L\",\n" +
             "\t\t\t\"stock\": 10\n" +
