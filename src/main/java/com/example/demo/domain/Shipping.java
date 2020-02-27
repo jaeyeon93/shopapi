@@ -15,6 +15,9 @@ import javax.persistence.*;
 public class Shipping {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Enumerated(EnumType.STRING)
     @JsonProperty("method")
     private Method method;
