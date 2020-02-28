@@ -49,7 +49,7 @@ public class BasketController {
     @PutMapping("/{userId}/buy")
     public ResponseDto buyGood(@PathVariable long userId, @RequestBody BasketInputDto basketInputDto) throws StockException {
         Basket basket = basketService.buyOrAddGood(userId, basketInputDto);
-        return ResponseDto.of(HttpStatus.OK, "물건구매 성공", basket);
+        return ResponseDto.of(HttpStatus.OK, "Success to buy good", basket);
     }
 
 
